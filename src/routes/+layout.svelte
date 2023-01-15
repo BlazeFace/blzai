@@ -11,9 +11,9 @@
                 </svg>
             </label>
             <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                <li><a>Homepage</a></li>
+                <li><a href="/">Homepage</a></li>
                 <li><a href="/topics">Portfolio</a></li>
-                <li><a>About</a></li>
+                <li><a href="/topics">About</a></li>
             </ul>
         </div>
     </div>
