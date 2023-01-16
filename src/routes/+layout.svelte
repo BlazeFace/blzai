@@ -10,7 +10,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
                 </svg>
             </label>
-            <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+            <ul tabindex="-1" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                 <li><a href="/">Homepage</a></li>
                 <li><a href="/topics">Portfolio</a></li>
                 <li><a href="/topics">About</a></li>
@@ -18,7 +18,7 @@
         </div>
     </div>
     <div class="navbar-center">
-        <a class="btn btn-ghost normal-case text-xl">blz.ai</a>
+        <a class="btn btn-ghost normal-case text-xl" href="/">blz.ai</a>
     </div>
     <div class="navbar-end">
         <button class="btn btn-ghost btn-circle">
