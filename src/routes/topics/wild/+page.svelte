@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type {IPhoto, } from '$lib/IPhoto';
+    import type {IPhoto,} from '$lib/IPhoto';
 
     const photos: IPhoto[] = [
         {
@@ -37,14 +37,15 @@
     ]
 </script>
 
-<!-- markup (zero or more items) goes here -->
-<div class="px-2">
-    <div class="container grid grid-cols-8 grid-flow-row gap-1 mx-auto">
+<div class="container px-5 py-2 mx-auto lg:pt-12 lg:px-32">
+    <div class="flex flex-wrap -m-1 md:-m-2">
         {#each photos as photo}
-
-                <div class="col-span-2 w-full">
-                    <img src="{photo.url}" alt="{photo.alt}"/>
+            <div class="flex flex-wrap md:w-1/4 w-1/2">
+                <div class="w-full p-1 md:p-2">
+                    <img alt="gallery" class="block object-cover object-center w-full h-full rounded-lg"
+                         src="{photo.url}"/>
                 </div>
+            </div>
         {/each}
     </div>
 </div>
