@@ -32,3 +32,21 @@ jobs:
       with:
         name: production-files
         path: ./build
+    - name: Download a Build Artifact
+      uses: actions/download-artifact@v3.0.2
+      with:
+        # Artifact name
+        name: production-files
+        # Destination path
+        path: ./build
+    - name: Upload to blob storage
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+            az storage blob upload-batch --account-name blzai  --auth-mode key -d '$web' -s ./production_files --account-key  ${{ secrets.STORAGE_SECRET }}
+    - name: Purge CDN endpoint
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+           az cdn endpoint purge --content-paths  "/*" --profile-name blzai-static --name https://blzai.azureedge.net --resource-group blzai
+
