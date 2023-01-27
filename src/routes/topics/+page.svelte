@@ -1,6 +1,9 @@
 <script lang="ts">
-    import type {ITopics} from '$lib/ITopics';
+    import { PUBLIC_STATE } from '$env/static/public';
+    import {parse} from 'yaml';
 
+    export const prerender = true;
+    /*
     const topics: ITopics[] = [
         {
             topic: 'Wildlife',
@@ -18,6 +21,10 @@
             topic: 'People',
             subtopics: ['Portraits']
         }];
+
+     */
+    const base = parse(PUBLIC_STATE);
+    const topics = base.topics;
 </script>
 
 <div class="container mx-auto">

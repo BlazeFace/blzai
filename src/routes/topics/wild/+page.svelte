@@ -1,6 +1,5 @@
 <script lang="ts">
     import type {IPhoto,} from '$lib/IPhoto';
-
     const photos: IPhoto[] = [
         {
             url: 'https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/2d440018-b662-48ac-7f1d-7ae3b7466200/ThreeByTwo',
