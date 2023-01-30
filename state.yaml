@@ -7,3 +7,8 @@ topics:
     subtopics: [Seattle, New York, Other Places]
   - topic: People
     subtopics: [Portraits]
+
+photos:
+  Birds: ['https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/aed20741-37da-4937-ccff-bf83c51e2000/ThreeByTwo', 'https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/aed20741-37da-4937-ccff-bf83c51e2000/ThreeByTwo']
+  Sunsets: [ 'https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/aed20741-37da-4937-ccff-bf83c51e2000/ThreeByTwo', 'https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/aed20741-37da-4937-ccff-bf83c51e2000/ThreeByTwo' ]
+  Mountains: ['https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/aed20741-37da-4937-ccff-bf83c51e2000/ThreeByTwo', 'https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/aed20741-37da-4937-ccff-bf83c51e2000/ThreeByTwo']

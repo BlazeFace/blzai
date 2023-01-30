@@ -1,29 +1,10 @@
 <script lang="ts">
     import { PUBLIC_STATE } from '$env/static/public';
     import {parse} from 'yaml';
+    import type {IStateWrapper} from "$lib/ITopics";
 
     export const prerender = true;
-    /*
-    const topics: ITopics[] = [
-        {
-            topic: 'Wildlife',
-            subtopics: ['Birds']
-        },
-        {
-            topic: 'Landscapes',
-            subtopics: ['Sunsets', 'Mountains']
-        },
-        {
-            topic: 'City',
-            subtopics: ['Seattle', 'Other Places']
-        },
-        {
-            topic: 'People',
-            subtopics: ['Portraits']
-        }];
-
-     */
-    const base = parse(PUBLIC_STATE);
+    const base: IStateWrapper = parse(PUBLIC_STATE);
     const topics = base.topics;
 </script>
 
@@ -36,7 +17,7 @@
                 <ul>
                     {#each topic.subtopics as subtopic}
                         <li>
-                            <a href="/topics/wild" class="text-accent">{subtopic}</a>
+                            <a href="/topics/{subtopic}" class="text-accent">{subtopic}</a>
                         </li>
                     {/each}
                 </ul>

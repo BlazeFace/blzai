@@ -3,3 +3,14 @@ export interface ITopics {
     subtopics: string[];
 }
 
+export interface ITopicGrid {
+    subtopic: string;
+    urls: string[];
+}
+
+export interface IStateWrapper {
+    topics: ITopics[]
+    photos: Map<string, string[]>
+}
+
+
