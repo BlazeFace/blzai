@@ -1,6 +1,6 @@
 topics:
   - topic: Wildlife
-    subtopics: [Birds]
+    subtopics: [Birds, Plants]
   - topic: Landscapes
     subtopics: [Sunsets, Mountains]
   - topic: City
@@ -9,7 +9,8 @@ topics:
     subtopics: [Portraits]
 
 photos:
-  Birds: ['https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/aed20741-37da-4937-ccff-bf83c51e2000/ThreeByTwo', 'https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/aed20741-37da-4937-ccff-bf83c51e2000/ThreeByTwo']
+  Birds: ['https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/aed20741-37da-4937-ccff-bf83c51e2000/ThreeByTwo', 'https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/aed20741-37da-4937-ccff-bf83c51e2000/ThreeByTwo', 'https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/780e71ce-987b-4f63-dc31-16a57b433500/ThreeByTwo', 'https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/f386ea50-4d30-47e1-08ab-38221fa1cf00/ThreeByTwo', 'https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/5b6a9e66-fec4-4946-226f-8d50234a4400/ThreeByTwo']
+  Plants: ['https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/fb9862a6-75ca-497e-2c1a-87b20a2a6300/ThreeByTwo']
   Sunsets: [ 'https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/aed20741-37da-4937-ccff-bf83c51e2000/ThreeByTwo', 'https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/aed20741-37da-4937-ccff-bf83c51e2000/ThreeByTwo' ]
   Mountains: ['https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/aed20741-37da-4937-ccff-bf83c51e2000/ThreeByTwo', 'https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/aed20741-37da-4937-ccff-bf83c51e2000/ThreeByTwo']
   Seattle: ['https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/aed20741-37da-4937-ccff-bf83c51e2000/ThreeByTwo']
