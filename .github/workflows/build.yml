@@ -24,6 +24,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - name: Copy to .env
+      run: |
+        state=$(cat state.yaml)
+        echo "PUBLIC_STATE=\" $state \" " > .env
     - run: npm ci
     - run: npx playwright install  
     - run: npm run build --if-present
