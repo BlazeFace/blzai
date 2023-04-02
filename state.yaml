@@ -1,19 +1,19 @@
 topics:
-  - topic: Wildlife
-    subtopics: [Birds, Plants]
-  - topic: Landscapes
-    subtopics: [Sunsets, Mountains]
-  - topic: City
-    subtopics: [Seattle, New York, Other Places]
-  - topic: People
-    subtopics: [Portraits]
+- topic: Wildlife
+  subtopics: [Birds, Plants]
+- topic: Landscapes
+  subtopics: [Sunsets, Mountains]
+- topic: City
+  subtopics: [Seattle, New York, Other Places]
+- topic: People
+  subtopics: [Portraits]
 
 photos:
-  Birds: ['https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/aed20741-37da-4937-ccff-bf83c51e2000/ThreeByTwo', 'https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/aed20741-37da-4937-ccff-bf83c51e2000/ThreeByTwo', 'https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/780e71ce-987b-4f63-dc31-16a57b433500/ThreeByTwo', 'https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/f386ea50-4d30-47e1-08ab-38221fa1cf00/ThreeByTwo', 'https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/5b6a9e66-fec4-4946-226f-8d50234a4400/ThreeByTwo']
-  Plants: ['https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/fb9862a6-75ca-497e-2c1a-87b20a2a6300/ThreeByTwo']
-  Sunsets: [ 'https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/aed20741-37da-4937-ccff-bf83c51e2000/ThreeByTwo', 'https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/aed20741-37da-4937-ccff-bf83c51e2000/ThreeByTwo' ]
-  Mountains: ['https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/aed20741-37da-4937-ccff-bf83c51e2000/ThreeByTwo', 'https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/aed20741-37da-4937-ccff-bf83c51e2000/ThreeByTwo']
-  Seattle: ['https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/aed20741-37da-4937-ccff-bf83c51e2000/ThreeByTwo']
-  New York: ['https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/aed20741-37da-4937-ccff-bf83c51e2000/ThreeByTwo']
-  Other Places: ['https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/aed20741-37da-4937-ccff-bf83c51e2000/ThreeByTwo']
-  Portraits: ['https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/aed20741-37da-4937-ccff-bf83c51e2000/ThreeByTwo']
+  Birds: ['https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/aed20741-37da-4937-ccff-bf83c51e2000/', 'https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/780e71ce-987b-4f63-dc31-16a57b433500/', 'https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/f386ea50-4d30-47e1-08ab-38221fa1cf00/', 'https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/5b6a9e66-fec4-4946-226f-8d50234a4400/']
+  Plants: ['https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/fb9862a6-75ca-497e-2c1a-87b20a2a6300/', 'https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/f276e50a-e5e1-4f0a-0108-ac56c7345700/]
+  Sunsets: []
+  Mountains: []
+  Seattle: ['https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/10e9c845-dc27-4183-608f-38c041942100/']
+  New York: ['https://imagedelivery.net/AKukteFqX2KcRIgzKa8xOw/63e2c105-f7f3-4fd9-3dda-6ed5a227c900/']
+  Other Places: []
+  Portraits: []
