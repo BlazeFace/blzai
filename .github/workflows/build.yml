@@ -18,8 +18,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        node-version: ${{ matrix.node-version }}
     - uses: azure/login@v1
       with:
+          node-version: ${{ matrix.node-version }}
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }} 
@@ -39,11 +42,13 @@ jobs:
     - name: Upload to blob storage
       uses: azure/CLI@v1
       with:
+        node-version: ${{ matrix.node-version }}
         inlineScript: |
             az storage blob upload-batch --account-name blzai --auth-mode login -d '$web' -s ./build --overwrite --output none
     - name: Purge CDN endpoint
       uses: azure/CLI@v1
       with:
+        node-version: ${{ matrix.node-version }}
         inlineScript: |
            az cdn endpoint purge --content-paths  "/*" --profile-name blzai-static --name blzai --resource-group blz.ai --output none
     # Azure logout
