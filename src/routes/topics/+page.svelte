@@ -3,7 +3,7 @@
     import {parse} from 'yaml';
     import type {IStateWrapper} from "$lib/ITopics";
 
-    export const prerender = true;
+    // export const prerender = true;
     const base: IStateWrapper = parse(PUBLIC_STATE);
     const topics = base.topics;
 </script>

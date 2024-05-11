@@ -3,22 +3,22 @@
      import type {TopicPage} from "./+page";
      import {parse} from "yaml";
      import type {IStateWrapper} from "$lib/ITopics";
-     import {crossfade, fade} from "svelte/transition";
+     import {crossfade} from "svelte/transition";
 
      export let data:TopicPage;
      // Handle Image Expand
      let selected = '';
      const [send, receive] = crossfade({
-         duration: () => 350,
-         fallback: fade,
+         duration: () => 350
      });
 
-     const handlePreviewClick = (imageURL) => {
+     const handlePreviewClick = (imageURL: string) => {
          selected = imageURL;
      }
      // State
      const base: IStateWrapper = parse(PUBLIC_STATE);
-     const photos = base.photos[data.name];
+     base.photos = new Map(Object.entries(base.photos));
+     const photos = base.photos.get(data.name) ?? []
 </script>
 <style>
     .image-viewer {
@@ -46,8 +46,8 @@
             <div class="flex flex-wrap md:w-1/4 w-1/2">
                 <div class="w-full p-1 md:p-2">
                     {#if photo !== selected}
-                        <div role="img" aria-label="photo" out:send={{key:photo}} in:receive={{key: photo}}
-                             on:click={() => handlePreviewClick(photo)} class="image"
+                        <div role="button" tabindex="0" aria-label="Expandable image" out:send={{key:photo}} in:receive={{key: photo}}
+                             on:click={() => handlePreviewClick(photo)} on:keydown={() => handlePreviewClick(photo)} class="image"
                              style="background-image: url({photo.concat('ThreeByTwo')});"></div>
                     {/if}
                 </div>
@@ -55,12 +55,11 @@
         {/each}
     </div>
     {#if selected}
-        <div class="image-viewer" on:click={(e) => {
-        if (e.target === e.currentTarget) {
-	    selected = ''
-	    }
-    }}>
-        <img in:receive={{key:selected}} out:send={{key: selected}} src="{selected.concat('public')}" />
+        <div class="image-viewer" role="button" tabindex="0"
+             on:click={(e) => { if (e.target === e.currentTarget) { selected = '' } }}
+             on:keydown={(e) => { if (e.target === e.currentTarget) { selected = '' } }}
+        >
+        <img alt = 'Feature to support caption for each is being worked on' in:receive={{key:selected}} out:send={{key: selected}} src="{selected.concat('public')}" />
         </div>
     {/if}
 
