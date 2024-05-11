@@ -38,12 +38,12 @@ jobs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-            az storage blob upload-batch --account-name blzai  --auth-mode key -d '$web' -s ./build --overwrite --account-key  ${{ secrets.STORAGE_SECRET }}
+            az storage blob upload-batch --account-name blzai  --auth-mode key -d '$web' -s ./build --overwrite --output none
     - name: Purge CDN endpoint
       uses: azure/CLI@v1
       with:
         inlineScript: |
-           az cdn endpoint purge --content-paths  "/*" --profile-name blzai-static --name blzai --resource-group blz.ai
+           az cdn endpoint purge --content-paths  "/*" --profile-name blzai-static --name blzai --resource-group blz.ai --output none
     # Azure logout
     - name: logout
       run: |
