@@ -38,8 +38,10 @@
         background: center / cover no-repeat;
     }
 </style>
-
-<h1 class="text-3xl text-center underline">{data.name}</h1>
+<h1 class="text-3xl text-center text-accent">{data.name}</h1>
+<div class="flex items-center justify-center mt-1 underline">
+    <a class= "text-l text-center" href="/topics">Back to Portfolio</a>
+</div>
 <div class="container px-5 py-2 mx-auto lg:pt-12 lg:px-32">
     <div class="flex flex-wrap -m-1 md:-m-2">
         {#each photos as photo}
