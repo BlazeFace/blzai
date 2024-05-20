@@ -20,7 +20,7 @@
 		"@sveltejs/kit": "2.5.8",
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
 		"@typescript-eslint/eslint-plugin": "^7.8.0",
-		"@typescript-eslint/parser": "^7.8.0",
+		"@typescript-eslint/parser": "^7.9.0",
 		"@tailwindcss/typography": "^0.5.13",
 		"autoprefixer": "^10.4.19",
 		"eslint": "^8.57.0",
