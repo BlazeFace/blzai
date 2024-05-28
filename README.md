@@ -1,1 +1,1 @@
-# Blz
+# Blz AI
