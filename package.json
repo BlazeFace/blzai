@@ -40,6 +40,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"daisyui": "^4.12.12"
+		"daisyui": "^4.12.13"
 	}
 }
