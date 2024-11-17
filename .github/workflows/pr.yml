@@ -28,5 +28,5 @@ jobs:
         printf "PUBLIC_STATE=\"\n$state\"" > .env
     - run: pnpm install
     - run: pnpx playwright install
-    - run: pnpm run build --if-present
+    - run: pnpm run build
     - run: pnpm test
