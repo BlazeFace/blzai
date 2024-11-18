@@ -8,7 +8,12 @@ export interface ITopicGrid {
     urls: string[];
 }
 
+export interface IGlobalState {
+    cdn: string;
+}
+
 export interface IStateWrapper {
+    global: IGlobalState;
     topics: ITopics[]
     photos: Map<string, string[]>
 }

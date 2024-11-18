@@ -17,7 +17,9 @@
      }
      // State
      const base: IStateWrapper = parse(PUBLIC_STATE);
+     const cdn = base.global.cdn;
      base.photos = new Map(Object.entries(base.photos));
+
      const photos = base.photos.get(data.name) ?? []
 </script>
 <style>
@@ -44,13 +46,13 @@
 </div>
 <div class="container px-5 py-2 mx-auto lg:pt-12 lg:px-32">
     <div class="flex flex-wrap -m-1 md:-m-2">
-        {#each photos as photo}
+        {#each photos as photoId}
             <div class="flex flex-wrap md:w-1/4 w-1/2">
                 <div class="w-full p-1 md:p-2">
-                    {#if photo !== selected}
-                        <div role="button" tabindex="0" aria-label="Expandable image" out:send={{key:photo}} in:receive={{key: photo}}
-                             on:click={() => handlePreviewClick(photo)} on:keydown={() => handlePreviewClick(photo)} class="image"
-                             style="background-image: url({photo.concat('ThreeByTwo')});"></div>
+                    {#if photoId !== selected}
+                        <div role="button" tabindex="0" aria-label="Expandable image" out:send={{key:photoId}} in:receive={{key: photoId}}
+                             on:click={() => handlePreviewClick(photoId)} on:keydown={() => handlePreviewClick(photoId)} class="image"
+                             style="background-image: url({`${cdn}preview_${photoId}.avif`});"></div>
                     {/if}
                 </div>
             </div>
@@ -61,7 +63,7 @@
              on:click={(e) => { if (e.target === e.currentTarget) { selected = '' } }}
              on:keydown={(e) => { if (e.target === e.currentTarget) { selected = '' } }}
         >
-        <img alt = 'Feature to support caption for each is being worked on' in:receive={{key:selected}} out:send={{key: selected}} src="{selected.concat('public')}" />
+        <img alt = 'Feature to support caption for each is being worked on' in:receive={{key:selected}} out:send={{key: selected}} src="{`${cdn}full_${selected}.avif`}" style="width: 100%; height: 100%; object-fit: contain;" />
         </div>
     {/if}
 
