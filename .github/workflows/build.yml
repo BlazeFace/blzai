@@ -46,7 +46,7 @@ jobs:
       uses: azure/CLI@v2
       with:
         inlineScript: |
-           az cdn endpoint purge --content-paths  "/*" --profile-name blzai-static --name blzai --resource-group blz.ai --output none
+          az afd endpoint purge --resource-group blz.ai --profile-name blzai-static --endpoint-name blzai --domains blz.ai www.blz.ai --content-paths '/*'
     # Azure logout
     - name: logout
       run: |
