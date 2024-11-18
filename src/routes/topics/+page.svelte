@@ -7,6 +7,7 @@
     const topics = base.topics;
 </script>
 
+<main>
 <div class="container mx-auto">
     <div class="grid grid-cols-3">
         <div></div>
@@ -24,7 +25,7 @@
         </div>
     </div>
 </div>
-
+</main>
 <style>
 
 </style>
