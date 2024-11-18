@@ -1,3 +1,5 @@
+global:
+  cdn: 'https://cdn.blz.ai/gallery/'
 topics:
   - topic: Wildlife
     subtopics: [Birds, Terrestrial, Plants, Best]
