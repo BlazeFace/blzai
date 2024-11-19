@@ -27,6 +27,6 @@ jobs:
         state=$(cat state.yaml)
         printf "PUBLIC_STATE=\"\n$state\"" > .env
     - run: pnpm install
-    - run: pnpx playwright install
+    - run: pnpm exec playwright install
     - run: pnpm run build
     - run: pnpm test
