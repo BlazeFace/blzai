@@ -3,6 +3,10 @@ export interface ITopics {
     subtopics: string[];
 }
 
+export interface ICards {
+    products: string[];
+}
+
 export interface ITopicGrid {
     subtopic: string;
     urls: string[];
@@ -16,6 +20,7 @@ export interface IStateWrapper {
     global: IGlobalState;
     topics: ITopics[]
     photos: Map<string, string[]>
+    cards: ICards
 }
 
 

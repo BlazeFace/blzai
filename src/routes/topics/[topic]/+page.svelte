@@ -33,11 +33,31 @@
         right: 0;
         top: 0;
         background-color: rgba(100, 100, 100, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     .image {
         width: 100%;
         height: 200px;
         background: center / cover no-repeat;
+    }
+    .image-viewer img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+    .close-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #fff;
+        color: oklch(var(--p));
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        font-size: 16px;
+        border-radius: 5px;
     }
 </style>
 <h1 class="text-3xl text-center text-accent">{data.name}</h1>
@@ -63,8 +83,8 @@
              on:click={(e) => { if (e.target === e.currentTarget) { selected = '' } }}
              on:keydown={(e) => { if (e.target === e.currentTarget) { selected = '' } }}
         >
-        <img alt = 'Feature to support caption for each is being worked on' in:receive={{key:selected}} out:send={{key: selected}} src="{`${cdn}full_${selected}.avif`}" style="width: 100%; height: 100%; object-fit: contain;" />
+            <button class="close-button" on:click={() => { selected = '' }}>x</button>
+            <img alt = 'Feature to support caption for each is being worked on' in:receive={{key:selected}} out:send={{key: selected}} src="{`${cdn}full_${selected}.avif`}" />
         </div>
     {/if}
-
 </div>
