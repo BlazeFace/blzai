@@ -22,7 +22,7 @@
 		"@sveltejs/vite-plugin-svelte": "^4.0.2",
 		"@tailwindcss/typography": "^0.5.15",
 		"@types/d3": "^7.4.3",
-		"@typescript-eslint/eslint-plugin": "^8.17.0",
+		"@typescript-eslint/eslint-plugin": "^8.18.0",
 		"@typescript-eslint/parser": "^8.17.0",
 		"autoprefixer": "^10.4.20",
 		"d3": "^7.9.0",
