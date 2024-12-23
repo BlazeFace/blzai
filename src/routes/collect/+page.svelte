@@ -69,7 +69,6 @@
         const localData = data.props as CollectPage;
         showSummary(localData.summaryData);
         localData.dataGroups.forEach((dataGroup, index) => {
-            console.log(dataGroup.data);
             updatePlot(dataGroup.data, index, products[index], dataGroup.maxY);
         });
     });
@@ -88,7 +87,9 @@
         margin: 1%;
     }
     .graph {
-        margin: 1%;
+        margin: 1% 1% 2%;
+        width: 640px;
+        height: 360px;
         flex: 1 1 calc(33.33% - 2%);
         max-width: calc(33.33% - 2%);
     }
@@ -96,7 +97,8 @@
         .graph {
             flex: 1 1 100%;
             max-width: 100%;
-            margin: 1%;
+            height: auto;
+            margin: 0 1% 2%;
         }
     }
     .summary-graphs-container{

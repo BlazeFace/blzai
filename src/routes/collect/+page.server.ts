@@ -20,8 +20,7 @@ async function fetchData(fetch: any, product: string) {
     return {data: data, maxY: maxY};
 }
 
-export const load: PageServerLoad = async ({ fetch, params }) => {
-    console.log("load")
+export const load: PageServerLoad = async ({ fetch }) => {
     const base: IStateWrapper = parse(PUBLIC_STATE);
     const productsList = base.cards.products;
 
