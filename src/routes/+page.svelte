@@ -25,7 +25,6 @@
             summaryData.push(...dataGroup.data);
         }
         // Show summary
-        console.log(summaryData);
         showSummary(summaryData);
         for (let i = 0; i < dataGroups.length; i++) {
             updatePlot(dataGroups[i].data, i, products[i], dataGroups[i].maxY);
@@ -107,11 +106,23 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         overflow-x: auto;
+    }
+    .summary-graph {
+        margin: 1%;
     }
     .graph {
         margin: 1%;
+        flex: 1 1 calc(33.33% - 2%);
+        max-width: calc(33.33% - 2%);
+    }
+    @media (max-width: 768px) {
+        .graph {
+            flex: 1 1 100%;
+            max-width: 100%;
+            margin: 1%;
+        }
     }
     .summary-graphs-container{
         display: flex;
@@ -123,8 +134,9 @@
 </style>
 
 <div class="summary-graphs-container">
-    <div bind:this={normalizedDiv} class="graph" role="img"></div>
+    <div bind:this={normalizedDiv} class="summary-graph" role="img"></div>
 </div>
+
 <div class="graphs-container">
     {#each products as _, index}
         <div class="graph" bind:this={divs[index]} role="img"></div>
