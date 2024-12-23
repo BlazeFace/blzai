@@ -5,7 +5,7 @@
      import type {IStateWrapper} from "$lib/ITopics";
      import {crossfade} from "svelte/transition";
 
-     export let data:TopicPage;
+     export let data: TopicPage;
      // Handle Image Expand
      let selected = '';
      const [send, receive] = crossfade({
