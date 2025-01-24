@@ -2,5 +2,4 @@
 export const prerender = true;
 
 // https://kit.svelte.dev/docs/page-options#trailingslash
-export const trailingSlash = 'always';
-
+export const trailingSlash = "always";

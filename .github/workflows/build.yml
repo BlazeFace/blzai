@@ -2,7 +2,7 @@ name: NodeJS Build
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
@@ -15,42 +15,41 @@ jobs:
         node-version: [20.x]
 
     steps:
-    - uses: actions/checkout@v4
-    - uses: azure/login@v2
-      with:
+      - uses: actions/checkout@v4
+      - uses: azure/login@v2
+        with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-    - uses: pnpm/action-setup@v4
-      name: Install pnpm
-      with:
-        run_install: false
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        cache: 'pnpm'
-    - name: Copy to .env
-      run: |
-        state=$(cat state.yaml)
-        printf "PUBLIC_STATE=\"\n$state\"" > .env
-    - run: pnpm install
-    - run: pnpm exec playwright install-deps
-    - run: pnpm exec playwright install
-    - run: pnpm run build
-    - run: pnpm test
-    - name: Upload to blob storage
-      uses: azure/CLI@v2
-      with:
-        inlineScript: |
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          run_install: false
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          cache: "pnpm"
+      - name: Copy to .env
+        run: |
+          state=$(cat state.yaml)
+          printf "PUBLIC_STATE=\"\n$state\"" > .env
+      - run: pnpm install
+      - run: pnpm exec playwright install-deps
+      - run: pnpm exec playwright install
+      - run: pnpm run build
+      - run: pnpm test
+      - name: Upload to blob storage
+        uses: azure/CLI@v2
+        with:
+          inlineScript: |
             az storage blob upload-batch --account-name blzai --auth-mode login -d '$web' -s ./build --overwrite --output none
-    - name: Purge CDN endpoint
-      uses: azure/CLI@v2
-      with:
-        inlineScript: |
-          az afd endpoint purge --resource-group blz.ai --profile-name blzai-static --endpoint-name blzai --domains blz.ai www.blz.ai --content-paths '/*'
-    # Azure logout
-    - name: logout
-      run: |
-            az logout
-      if: always()
-
+      - name: Purge CDN endpoint
+        uses: azure/CLI@v2
+        with:
+          inlineScript: |
+            az afd endpoint purge --resource-group blz.ai --profile-name blzai-static --endpoint-name blzai --domains blz.ai www.blz.ai --content-paths '/*'
+      # Azure logout
+      - name: logout
+        run: |
+          az logout
+        if: always()

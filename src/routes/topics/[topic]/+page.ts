@@ -1,11 +1,11 @@
-import type { PageLoad } from './$types';
+import type { PageLoad } from "./$types";
 
 export const load: PageLoad = ({ params }) => {
-    return {
-        name: params.topic
-    }
-}
+  return {
+    name: params.topic,
+  };
+};
 
-export interface TopicPage{
-    name: string
+export interface TopicPage {
+  name: string;
 }

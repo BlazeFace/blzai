@@ -1,5 +1,6 @@
 # Blz AI
 
 ## Features
-* TCG Sealed Product Price Tracker 
-* Photography Portfolio
+
+- TCG Sealed Product Price Tracker
+- Photography Portfolio

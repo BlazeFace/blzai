@@ -1,26 +1,24 @@
 export interface ITopics {
-    topic: string;
-    subtopics: string[];
+  topic: string;
+  subtopics: string[];
 }
 
 export interface ICards {
-    products: string[];
+  products: string[];
 }
 
 export interface ITopicGrid {
-    subtopic: string;
-    urls: string[];
+  subtopic: string;
+  urls: string[];
 }
 
 export interface IGlobalState {
-    cdn: string;
+  cdn: string;
 }
 
 export interface IStateWrapper {
-    global: IGlobalState;
-    topics: ITopics[]
-    photos: Map<string, string[]>
-    cards: ICards
+  global: IGlobalState;
+  topics: ITopics[];
+  photos: Map<string, string[]>;
+  cards: ICards;
 }
-
-

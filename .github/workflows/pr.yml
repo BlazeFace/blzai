@@ -1,9 +1,9 @@
 name: PR
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
@@ -12,22 +12,22 @@ jobs:
       matrix:
         node-version: [20.x]
     steps:
-    - uses: actions/checkout@v4
-    - uses: pnpm/action-setup@v4
-      name: Install pnpm
-      with:
-        run_install: false
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'pnpm'
-    - name: Copy to .env
-      run: |
-        state=$(cat state.yaml)
-        printf "PUBLIC_STATE=\"\n$state\"" > .env
-    - run: pnpm install
-    - run: pnpm exec playwright install-deps
-    - run: pnpm exec playwright install
-    - run: pnpm run build
-    - run: pnpm test
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          run_install: false
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Copy to .env
+        run: |
+          state=$(cat state.yaml)
+          printf "PUBLIC_STATE=\"\n$state\"" > .env
+      - run: pnpm install
+      - run: pnpm exec playwright install-deps
+      - run: pnpm exec playwright install
+      - run: pnpm run build
+      - run: pnpm test
