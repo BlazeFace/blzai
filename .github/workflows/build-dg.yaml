@@ -37,7 +37,7 @@ jobs:
         uses: azure/CLI@v2
         with:
           inlineScript: |
-            az storage blob upload-batch --account-name blzaidg --auth-mode login -d '$web' -s ./build --overwrite --output none
+            az storage blob upload-batch --account-name blzaidg --auth-mode login -d '$web' -s ./data-grid/dist --overwrite --output none
       # Azure logout
       - name: logout
         run: |
