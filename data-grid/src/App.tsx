@@ -1,4 +1,4 @@
-import {Component, createEffect, createSignal} from 'solid-js';
+import { Component, createEffect, createSignal, Show } from "solid-js";
 import {Grid, QuerySelector} from "./Grid";
 import {AsyncDuckDB, AsyncDuckDBConnection} from "@duckdb/duckdb-wasm";
 import {Table} from "apache-arrow";
@@ -23,6 +23,7 @@ const App: Component<AppProps> = (props) => {
     const [filterStore, setFilterStore] = createStore<FilterStore>({store: new Map<string, FilterStoreValue>()});
     const [querySelector, setQuerySelector] = createSignal<QuerySelector>({selections: new Map<string, Set<string>>()});
 
+    const [showSidebar, setShowSidebar] = createSignal<boolean>(true);
     const [table, setTable] = createSignal<string>("");
     const [selectedFile, setSelectedFile] = createSignal<File>(new File([], ""));
     const [stateKey, setStateKey] = createSignal<number>(0);
@@ -129,12 +130,30 @@ const App: Component<AppProps> = (props) => {
           <div class="container w-screen">
                   <div class="flex flex-col bg-amber-500 w-screen">
                       <div class="flex flex-row">
-                          <h1>Test</h1>
+                          <h1>DataGrid</h1>
                       </div>
-                      <div class="flex flex-row">
-                          <div class="flex-auto bg-amber-50 basis-1/6 p-2"><input type="file" onChange={handleFileChange}/>
-                              {selectedFile() && <p>Selected file: {selectedFile().name}</p>}
-                              <form class="w-full max-w-sm" onSubmit={handleQuery}>
+                      <div class="flex flex-row h-screen">
+                          <Show when={showSidebar()}>
+                          <div class="flex-auto h-full bg-amber-50 basis-1/5 p-2">
+                              <div class="flex-row flex">
+                                  <div class="flex-col basis-11/12">
+                                    {selectedFile() && <p>Selected file: {selectedFile().name}</p>}
+                                      <input
+                                        type="file"
+                                        class="text-sm text-stone-500
+                                           file:mr-5 file:py-1 file:px-3 file:border-[1px]
+                                           file:text-xs file:font-medium
+                                           file:bg-stone-50 file:text-stone-700
+                                           hover:file:cursor-pointer hover:file:bg-blue-50
+                                           hover:file:text-blue-700"
+                                        onChange={handleFileChange}
+                                      />
+                                  </div>
+                                  <div class="flex-col basis-1/12 content-end">
+                                      <button class="button" onClick={ () => setShowSidebar(false)}>x</button>
+                                  </div>
+                              </div>
+                              <form class="w-full max-w-lg" onSubmit={handleQuery}>
                                   <div class="flex items-center border-b border-teal-500 py-2">
                                       <input
                                           class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-hidden"
@@ -148,9 +167,13 @@ const App: Component<AppProps> = (props) => {
                                   </div>
                               </form>
                           </div>
+                          </Show>
+                          <div class="flex-initial bg-gray-200 basis-full">
+                              <Grid tbl={tbl()} state={stateKey()} widths={widths()} filterStore={filterStore}
+                                                                                querySelector={querySelector} setQuerySelector={setQuerySelector}>
 
-                          <div class="flex-initial bg-gray-200 basis-4/6"><Grid tbl={tbl()} state={stateKey()} widths={widths()} filterStore={filterStore}
-                                                                                querySelector={querySelector} setQuerySelector={setQuerySelector}></Grid></div>
+                              </Grid>
+                          </div>
                       </div>
                   </div>
           </div>

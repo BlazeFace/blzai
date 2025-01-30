@@ -8,18 +8,18 @@ export type Column = { name: string }
 type HeaderCellProps = { col: Accessor<Column>, index: number, width: number, filterClick: Setter<FilterClick>, filterAccessor: Accessor<FilterClick>, filterStore: FilterStore,
     selectQuerySetter: Setter<QuerySelector>, selectQueryAccessor: Accessor<QuerySelector> };
 export const HeaderCell: Component<HeaderCellProps> = (props) => {
-    const handleSelect = (column: string, value: string) => {
-        console.log('Selected:', column);
-        console.log('Adding:', value);
+    const handleSelect = (column: string, value: string, clear: boolean) => {
         const currentSelections = props.selectQueryAccessor().selections.get(column) ?? new Set();
+        if (clear) {
+            props.selectQuerySetter({selections: props.selectQueryAccessor().selections.set(column, new Set())});
+            return
+        }
         if (currentSelections.has(value)) {
             const newSelections = new Set([...currentSelections].filter(v => v !== value));
-            console.log('New Selections:', newSelections);
             props.selectQuerySetter({selections: props.selectQueryAccessor().selections.set(column, newSelections)});
             return
         }
         const newSelections = currentSelections.add(value);
-        console.log('New Selections:', newSelections);
         props.selectQuerySetter({selections: props.selectQueryAccessor().selections.set(column, newSelections)});
     };
     // SVG is CC0 Public Domain from https://www.svgrepo.com/page/licensing/#CC0
@@ -40,7 +40,7 @@ export const HeaderCell: Component<HeaderCellProps> = (props) => {
                     </div>
                 </div>
                 <Show when={props.filterAccessor().clicked && props.filterAccessor().columnLocation === props.index}>
-                    <div class="absolute border-solid border-2 border-red-500 bg-amber-50" style={`width: 6%; margin-left:calc(${props.width}px - 6%);`}>
+                    <div class="absolute border-solid border-2 border-red-500 bg-amber-50" style={`width: 7%; margin-left:calc(${props.width}px - 7%);`}>
                         <GridDropdown options={props.filterStore.store.get(props.col().name)?.values ?? []} onSelect={handleSelect} filterClick={props.filterClick} index={props.index} columnName={props.col().name} selectQuerySetter={props.selectQuerySetter}/>
                     </div>
                 </Show>
