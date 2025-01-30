@@ -3,6 +3,8 @@ name: Build Data Grid
 on:
   push:
     branches: ["main"]
+    paths:
+      - ""/data-grid/**""
 
 jobs:
   build:

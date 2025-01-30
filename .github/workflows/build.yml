@@ -3,7 +3,8 @@ name: Build blz.ai
 on:
   push:
     branches: ["main"]
-
+    paths-ignore:
+      - "*/data-grid/**"
 jobs:
   build:
     runs-on: ubuntu-latest
