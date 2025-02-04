@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@observablehq/plot": "^0.6.16",
-    "@playwright/test": "^1.50.0",
+    "@playwright/test": "^1.50.1",
     "@sveltejs/adapter-auto": "^4.0.0",
     "@sveltejs/adapter-static": "^3.0.8",
     "@sveltejs/kit": "^2.15.1",
