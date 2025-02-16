@@ -1,4 +1,3 @@
-/* @refresh reload */
 import './index.css';
 import App from './App';
 import { render } from 'solid-js/web';
@@ -27,7 +26,6 @@ let c: AsyncDuckDBConnection;
 
 await setup();
 await connect();
-console.log("Connected");
 
 const root = document.getElementById('root');
 

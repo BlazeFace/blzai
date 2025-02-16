@@ -6,7 +6,8 @@ import {HeaderRow} from "./HeaderRow";
 import {Column} from "./HeaderCell";
 import {FilterStore} from "./App";
 
-export type QuerySelector = {selections: Map<string, Set<string>>};
+export type Ordering = {column: string, dir: number};
+export type QuerySelector = {selections: Map<string, Set<string>>, ordering: Ordering};
 type GridProps = {tbl: Table<any>, widths: number[], state: number,
     filterStore: FilterStore,
     querySelector: Accessor<QuerySelector>, setQuerySelector: Setter<QuerySelector>

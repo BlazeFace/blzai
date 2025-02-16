@@ -1,5 +1,5 @@
 import { Component, createEffect, createSignal, Show } from "solid-js";
-import {Grid, QuerySelector} from "./Grid";
+import { Grid, Ordering, QuerySelector } from "./Grid";
 import {AsyncDuckDB, AsyncDuckDBConnection} from "@duckdb/duckdb-wasm";
 import {Table} from "apache-arrow";
 import * as utils from "./utils";
@@ -21,7 +21,7 @@ const App: Component<AppProps> = (props) => {
     c = props.c;
 
     const [filterStore, setFilterStore] = createStore<FilterStore>({store: new Map<string, FilterStoreValue>()});
-    const [querySelector, setQuerySelector] = createSignal<QuerySelector>({selections: new Map<string, Set<string>>()});
+    const [querySelector, setQuerySelector] = createSignal<QuerySelector>({selections: new Map<string, Set<string>>(), ordering: {column: "", dir: 0}});
 
     const [showSidebar, setShowSidebar] = createSignal<boolean>(true);
     const [table, setTable] = createSignal<string>("");
@@ -80,14 +80,14 @@ const App: Component<AppProps> = (props) => {
         }
         const baseQuery = queryForm().query.length > 0 ? queryForm().query : "1=1";
         if (querySelector().selections.size > 0) {
-            const q = `${baseQuery} ${utils.buildWhereIn(querySelector().selections)}`;
+            const q = `${baseQuery} ${utils.buildWhereIn(querySelector().selections)} ${addOrderBy(querySelector().ordering)}`;
             await buildFilters(table(), q);
             await runQuery(table(), q);
             return;
         }
         else {
             await buildFilters(table(), baseQuery);
-            await runQuery(table(), baseQuery);
+            await runQuery(table(), `${baseQuery} ${addOrderBy(querySelector().ordering)}`);
         }
     });
 
@@ -125,6 +125,14 @@ const App: Component<AppProps> = (props) => {
         filterValues.forEach(fv => mapping.set(fv.name, fv));
         setFilterStore(store);
     }
+
+
+    function addOrderBy(ordering: Ordering) {
+        const column = ordering.column;
+        const dir = ordering.dir;
+        return dir != 0 && column != "" ? `ORDER BY "${column}" ${dir === 1 ? 'ASC' : 'DESC'}` : '';
+    }
+
   return (
       <>
           <div class="container w-screen">
