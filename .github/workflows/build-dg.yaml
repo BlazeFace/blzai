@@ -5,6 +5,7 @@ on:
     branches: ["main"]
     paths:
       - "**/data-grid/**"
+      - "**/build-dg.yaml"
 
 jobs:
   build:

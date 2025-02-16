@@ -5,6 +5,7 @@ on:
     branches: ["main"]
     paths-ignore:
       - "**/data-grid/**"
+      - "**/build-dg.yaml"
 jobs:
   build:
     runs-on: ubuntu-latest
