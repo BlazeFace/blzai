@@ -41,6 +41,11 @@ jobs:
         with:
           inlineScript: |
             az storage blob upload-batch --account-name blzaidg --auth-mode login -d '$web' -s ./data-grid/dist --overwrite --output none
+      - name: Purge CDN endpoint
+        uses: azure/CLI@v2
+        with:
+          inlineScript: |
+            az afd endpoint purge --resource-group blz.ai --profile-name blzai-static --endpoint-name blzai-dg --domains dg.blz.ai www.dg.blz.ai --content-paths '/*'
       # Azure logout
       - name: logout
         run: |
