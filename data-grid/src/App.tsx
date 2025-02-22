@@ -4,7 +4,8 @@ import {AsyncDuckDB, AsyncDuckDBConnection} from "@duckdb/duckdb-wasm";
 import {Table} from "apache-arrow";
 import * as utils from "./utils";
 import {createStore} from "solid-js/store";
-
+import hljs from 'highlight.js/lib/core';
+import sql from 'highlight.js/lib/languages/sql';
 // Database References
 let db: AsyncDuckDB;
 let c: AsyncDuckDBConnection;
@@ -20,15 +21,17 @@ const App: Component<AppProps> = (props) => {
     db = props.db;
     c = props.c;
 
+    hljs.registerLanguage('sql', sql);
+
     const [filterStore, setFilterStore] = createStore<FilterStore>({store: new Map<string, FilterStoreValue>()});
     const [querySelector, setQuerySelector] = createSignal<QuerySelector>({selections: new Map<string, Set<string>>(), ordering: {column: "", dir: 0}});
-
     const [showSidebar, setShowSidebar] = createSignal<boolean>(true);
     const [table, setTable] = createSignal<string>("");
     const [selectedFile, setSelectedFile] = createSignal<File>(new File([], ""));
     const [stateKey, setStateKey] = createSignal<number>(0);
     const [queryForm, setQueryForm] = createSignal<QueryForm>({query: ""});
     const [notBuiltQuery, setNotBuiltQuery] = createSignal<string>("");
+    const [builtQuery, setBuiltQuery] = createSignal<string>("");
 
     const handleFileChange = (event: any) => {
         setSelectedFile(event.target.files[0]);
@@ -54,9 +57,12 @@ const App: Component<AppProps> = (props) => {
             return;
         }
         const query = `SELECT * FROM "${table}" ${queryString.length > 0 ? 'WHERE' : ''} ${queryString} LIMIT 2000`;
-        console.log(query);
+        const formatedQuery = hljs.highlight(
+          query,
+          { language: 'sql' }
+        ).value;
+        setBuiltQuery(formatedQuery);
         const result = await c.query(query);
-        console.log(result.get(0)?.toArray());
         // @ts-ignore
         setData(result);
         setStateKey(stateKey() + 1);
@@ -174,12 +180,15 @@ const App: Component<AppProps> = (props) => {
                                       </button>
                                   </div>
                               </form>
+                              <div>
+                                  <h1>Filters:</h1>
+                                  <div style="font-size: 0.9em" innerHTML={builtQuery()}></div>
+                              </div>
                           </div>
                           </Show>
                           <div class="flex-initial bg-gray-200 basis-full">
                               <Grid tbl={tbl()} state={stateKey()} widths={widths()} filterStore={filterStore}
                                                                                 querySelector={querySelector} setQuerySelector={setQuerySelector}>
-
                               </Grid>
                           </div>
                       </div>

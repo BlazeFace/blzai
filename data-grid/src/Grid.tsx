@@ -46,7 +46,6 @@ export const Grid: Component<GridProps> = (props) => {
     return (
         <>
             <div class="flex items-center justify-center pt-0.5">
-                <h1>Table A: {props.state}</h1>
                 <div class="grid grid-flow-row auto-row-max " style = "font-family: monospace">
                     <HeaderRow cols={columnInformation(props.tbl)} columnWidths={widths} filterStore={props.filterStore} selectQuerySetter={props.setQuerySelector} selectQueryAccessor={props.querySelector}></HeaderRow>
                     <Index each={transformTable(props.tbl)}>{(row) =>
