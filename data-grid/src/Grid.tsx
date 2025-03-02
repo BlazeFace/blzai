@@ -1,6 +1,6 @@
 import {Row} from "./Row";
 import {Accessor, Component, createSignal, Index, Setter} from "solid-js";
-import {Table} from "apache-arrow";
+import { Table } from "apache-arrow";
 import * as utils from "./utils";
 import {HeaderRow} from "./HeaderRow";
 import {Column} from "./HeaderCell";
@@ -8,15 +8,18 @@ import {FilterStore} from "./App";
 
 export type Ordering = {column: string, dir: number};
 export type QuerySelector = {selections: Map<string, Set<string>>, ordering: Ordering};
+
 type GridProps = {tbl: Table<any>, widths: number[], state: number,
     filterStore: FilterStore,
     querySelector: Accessor<QuerySelector>, setQuerySelector: Setter<QuerySelector>
+    onCellUpdate: (value: any, rowId: bigint, colIndex: number) => void,
 };
 export const Grid: Component<GridProps> = (props) => {
     const [columns, setColumns] = createSignal<Column[]>([]);
+    const [selectedCells, setSelectedCells] = createSignal<Map<bigint, Set<number>>>(new Map());
 
     const columnInformation = (tbl: Table<any>) => {
-        let info = tbl.schema.names as string[];
+        const info = (tbl.schema.names as string[]).slice(1);
         // Set Header Names
         const columnObjs = Array.from({length: info.length}, (_, i) => {
           return {name: info[i]} as Column;
@@ -37,9 +40,10 @@ export const Grid: Component<GridProps> = (props) => {
             const w = utils.rowWidths(values[i], runeSize);
             width = utils.replaceIfGreater(width, w)
         }
+
         setWidths(width);
         return Array.from({length: tbl.numRows}, (_, i) => {
-            return {id: i, value: values[i]};
+            return {id: values[i][0], value: values[i].slice(1)};
         });
     }
 
@@ -49,7 +53,8 @@ export const Grid: Component<GridProps> = (props) => {
                 <div class="grid grid-flow-row auto-row-max " style = "font-family: monospace">
                     <HeaderRow cols={columnInformation(props.tbl)} columnWidths={widths} filterStore={props.filterStore} selectQuerySetter={props.setQuerySelector} selectQueryAccessor={props.querySelector}></HeaderRow>
                     <Index each={transformTable(props.tbl)}>{(row) =>
-                        <Row cells={row} columns={widths}></Row>
+                        <Row cells={row} columns={widths} selectedCells={selectedCells}
+                             setSelectedCells={setSelectedCells} onUpdate={props.onCellUpdate}/>
                         }
                     </Index>
             </div>

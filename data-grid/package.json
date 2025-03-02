@@ -11,20 +11,20 @@
   "license": "GPL-3.0-or-later",
   "devDependencies": {
     "@duckdb/duckdb-wasm": "^1.29.0",
-    "@tailwindcss/postcss": "^4.0.8",
+    "@tailwindcss/postcss": "^4.0.9",
     "apache-arrow": "^19.0.1",
     "postcss": "^8.5.3",
     "solid-devtools": "^0.33.0",
-    "tailwindcss": "^4.0.8",
-    "typescript": "^5.7.3",
-    "vite": "^6.1.1",
-    "vite-plugin-solid": "^2.11.2"
+    "tailwindcss": "^4.0.9",
+    "typescript": "^5.8.2",
+    "vite": "^6.2.0",
+    "vite-plugin-solid": "^2.11.6"
   },
   "dependencies": {
     "@observablehq/plot": "^0.6.17",
     "d3": "^7.9.0",
-    "solid-js": "^1.9.5",
-    "highlight.js": "^11.11.1"
+    "highlight.js": "^11.11.1",
+    "solid-js": "^1.9.5"
   },
   "packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0"
 }

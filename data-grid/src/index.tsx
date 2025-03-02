@@ -51,5 +51,7 @@ async function setup() {
 async function connect() {
   if (!c) {
     c = await db.connect();
+    await c.query("INSTALL sqlite_scanner;");
+    await c.query("LOAD sqlite_scanner;");
   }
 }

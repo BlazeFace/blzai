@@ -6,6 +6,7 @@ import * as utils from "./utils";
 import {createStore} from "solid-js/store";
 import hljs from 'highlight.js/lib/core';
 import sql from 'highlight.js/lib/languages/sql';
+
 // Database References
 let db: AsyncDuckDB;
 let c: AsyncDuckDBConnection;
@@ -56,7 +57,7 @@ const App: Component<AppProps> = (props) => {
             console.log("Table not selected");
             return;
         }
-        const query = `SELECT * FROM "${table}" ${queryString.length > 0 ? 'WHERE' : ''} ${queryString} LIMIT 2000`;
+        const query = `SELECT * FROM "${table}_with_edits" ${queryString.length > 0 ? 'WHERE' : ''} ${queryString} LIMIT 2000`;
         const formatedQuery = hljs.highlight(
           query,
           { language: 'sql' }
@@ -66,11 +67,12 @@ const App: Component<AppProps> = (props) => {
         // @ts-ignore
         setData(result);
         setStateKey(stateKey() + 1);
-        // Calculate initial column widths
+        // Calculate initial column widths, skipping rowid
         let info = result.schema.names as string[];
+
         const fontSize = utils.getFontSize();
         const runeSize = utils.calculateTextWidth("A", `${fontSize} monospace`);
-        setWidths(utils.rowWidths(info, runeSize));
+        setWidths(utils.rowWidths(info.slice(1), runeSize));
     }
 
 
@@ -98,7 +100,7 @@ const App: Component<AppProps> = (props) => {
     });
 
     async function buildFilters(table: string, query: string = "") {
-        const columns = await c.query(`SHOW "${table}";`);
+        const columns = await c.query(`select column_name, data_type from information_schema.columns where column_name != 'rowid' and table_name = '${table}_with_edits'`);
         let filterValues: FilterStoreValue[] = [];
         const lookup: Record<string, number> = {};
         for (let i = 0; i  < columns.numRows; i++) {
@@ -108,13 +110,22 @@ const App: Component<AppProps> = (props) => {
         for (let i = 0; i < columns.numRows; i++) {
             const columnName = columns.get(i)?.toArray()[0];
             const columnType = columns.get(i)?.toArray()[1];
+            // Skip rowid
+            if (columnName === "rowid") {
+                continue;
+            }
             const queryString = query.length > 0 ? `WHERE ${query}` : "";
-            const sql = `SELECT DISTINCT "${columnName}" FROM "${table}" ${queryString}`;
+            const sql = `SELECT DISTINCT "${columnName}" FROM "${table}_with_edits" ${queryString}`;
             const resp = await c.query(sql);
             let values: any[] = [];
 
             // Accumulate Values
             for (let j = 0; j < resp.numRows; j++) {
+                console.log(columnType);
+                if (columnType == "BIGINT") {
+                    values.push(resp.get(j)?.toArray()[0].toString());
+                    continue;
+                }
                 values.push(resp.get(j)?.toArray()[0]);
             }
 
@@ -137,6 +148,10 @@ const App: Component<AppProps> = (props) => {
         const column = ordering.column;
         const dir = ordering.dir;
         return dir != 0 && column != "" ? `ORDER BY "${column}" ${dir === 1 ? 'ASC' : 'DESC'}` : '';
+    }
+
+    async function onCellUpdate(value: any, rowId: bigint, colIndex: number) {
+        await c.query(`INSERT INTO edits.${table()} VALUES (${rowId.toString()}, ${colIndex}, '${value}')`);
     }
 
   return (
@@ -186,9 +201,17 @@ const App: Component<AppProps> = (props) => {
                               </div>
                           </div>
                           </Show>
+                          <Show when={!showSidebar()}>
+                              <button
+                                class="p-2 bg-amber-100 hover:bg-amber-200 rounded-r"
+                                onClick={() => setShowSidebar(true)}
+                              >
+                                  ≡
+                              </button>
+                          </Show>
                           <div class="flex-initial bg-gray-200 basis-full">
                               <Grid tbl={tbl()} state={stateKey()} widths={widths()} filterStore={filterStore}
-                                                                                querySelector={querySelector} setQuerySelector={setQuerySelector}>
+                                    querySelector={querySelector} setQuerySelector={setQuerySelector} onCellUpdate={onCellUpdate}>
                               </Grid>
                           </div>
                       </div>
@@ -206,11 +229,60 @@ const cleanTableName = (tbl: string) => {
 async function update(tbl: string, extension: string, str: string) {
     // Remove Special Characters from Table Name
     const cleanTbl = cleanTableName(tbl);
-    const table = `${cleanTbl}.${extension}`;
-    await db.dropFile(table);
+    const tablePath = `${cleanTbl}.${extension}`;
+    await db.dropFile(tablePath);
     await db.registerFileText(
-        table,
+      tablePath,
         str
     );
-    await c.insertCSVFromPath(table, {schema: 'main', name: cleanTbl, delimiter: ","});
+    await c.query(`DROP TABLE IF EXISTS "${cleanTbl}"`);
+    await c.insertCSVFromPath(tablePath, {schema: 'main', name: cleanTbl, delimiter: ","});
+
+    await c.query(`
+      CREATE OR REPLACE TABLE "${cleanTbl}_with_rowid" AS 
+      SELECT row_number() OVER() - 1 AS rowid, * 
+      FROM "${cleanTbl}"
+    `);
+
+    // Replace the original table with the new one
+    await c.query(`DROP TABLE "${cleanTbl}"`);
+    await c.query(`ALTER TABLE "${cleanTbl}_with_rowid" RENAME TO "${cleanTbl}"`);
+
+    await c.query(`ATTACH IF NOT EXISTS 'edits.db' (TYPE sqlite)`);
+    await c.query(`CREATE TABLE IF NOT EXISTS edits.${cleanTbl} (rowId INTEGER, colId INTEGER, cellValue TEXT)`);
+
+    // Get column names from the base table
+    const columnInfo = await c.query(`DESCRIBE "${cleanTbl}";`);
+    const columns = [];
+    for (let i = 0; i < columnInfo.numRows; i++) {
+        // Cannot include rowid in view
+        if (columnInfo.get(i)?.toArray()[0] === "rowid") {
+            continue;
+        }
+        const columnData = columnInfo.get(i)?.toArray();
+        if (columnData) {
+            columns.push({
+                name: columnData[0],
+                type: columnData[1]
+            });
+        }
+    }
+
+    let viewSQL = `CREATE OR REPLACE VIEW "${cleanTbl}_with_edits" AS SELECT rowid, `;
+
+    // Build case expressions for each column with proper casting
+    const caseExpressions = columns.map((col, idx) => {
+        return `CASE WHEN EXISTS (
+            SELECT 1 FROM edits.${cleanTbl}
+            WHERE rowId = t.rowid AND colId = ${idx}
+        ) THEN 
+            CAST((SELECT cellValue FROM edits.${cleanTbl}
+            WHERE rowId = t.rowid AND colId = ${idx}
+            ORDER BY rowId DESC LIMIT 1) AS ${col.type})
+        ELSE t."${col.name}" END AS "${col.name}"`;
+    }).join(", ");
+
+    viewSQL += caseExpressions;
+    viewSQL += `FROM "${cleanTbl}" t`;
+    await c.query(viewSQL);
 }
