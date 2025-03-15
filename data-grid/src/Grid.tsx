@@ -37,7 +37,7 @@ export const Grid: Component<GridProps> = (props) => {
 
         for (let i = 0; i < tbl.numRows; i++) {
             values.push(tbl.get(i)?.toArray());
-            const w = utils.rowWidths(values[i], runeSize);
+            const w = utils.rowWidths(values[i].slice(1), runeSize);
             width = utils.replaceIfGreater(width, w)
         }
 

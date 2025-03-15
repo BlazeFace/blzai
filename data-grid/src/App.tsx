@@ -6,6 +6,7 @@ import * as utils from "./utils";
 import {createStore} from "solid-js/store";
 import hljs from 'highlight.js/lib/core';
 import sql from 'highlight.js/lib/languages/sql';
+import { SidePanel } from "./SidePanel/SidePanel";
 
 // Database References
 let db: AsyncDuckDB;
@@ -121,7 +122,6 @@ const App: Component<AppProps> = (props) => {
 
             // Accumulate Values
             for (let j = 0; j < resp.numRows; j++) {
-                console.log(columnType);
                 if (columnType == "BIGINT") {
                     values.push(resp.get(j)?.toArray()[0].toString());
                     continue;
@@ -143,7 +143,6 @@ const App: Component<AppProps> = (props) => {
         setFilterStore(store);
     }
 
-
     function addOrderBy(ordering: Ordering) {
         const column = ordering.column;
         const dir = ordering.dir;
@@ -156,66 +155,42 @@ const App: Component<AppProps> = (props) => {
 
   return (
       <>
-          <div class="container w-screen">
-                  <div class="flex flex-col bg-amber-500 w-screen">
-                      <div class="flex flex-row">
-                          <h1>DataGrid</h1>
-                      </div>
-                      <div class="flex flex-row h-screen">
+          <div class="container min-w-full min-h-full">
+              <div class="fixed top-0 left-0 right-0 flex flex-row bg-amber-500 z-20">
+                  <h1>DataGrid</h1>
+              </div>
+              <div class="flex flex-col w-screen">
+                  <div class="flex flex-row bg-blue-300 h-screen">
+                      <Show when={showSidebar()}>
+                          <SidePanel selectedFile={selectedFile} setSelectedFile={setSelectedFile}
+                                     handleFileChange={handleFileChange}
+                                     setShowSidebar={setShowSidebar}
+                                     builtQuery={builtQuery} handleQuery={handleQuery} updateForm={updateForm} />
+                      </Show>
+                      <Show when={!showSidebar()}>
+                          <button
+                            class="fixed top-0 left-0 h-full mt-6 w-1/120 bg-amber-100 hover:bg-amber-200 rounded-r"
+                            onClick={() => setShowSidebar(true)}>
+                              =
+                          </button>
+                      </Show>
+                      <div
+                        class={showSidebar() ? "flex flex-auto bg-gray-200 basis-2/3" : "flex flex-auto bg-gray-200 basis-full"}>
                           <Show when={showSidebar()}>
-                          <div class="flex-auto h-full bg-amber-50 basis-1/5 p-2">
-                              <div class="flex-row flex">
-                                  <div class="flex-col basis-11/12">
-                                    {selectedFile() && <p>Selected file: {selectedFile().name}</p>}
-                                      <input
-                                        type="file"
-                                        class="text-sm text-stone-500
-                                           file:mr-5 file:py-1 file:px-3 file:border-[1px]
-                                           file:text-xs file:font-medium
-                                           file:bg-stone-50 file:text-stone-700
-                                           hover:file:cursor-pointer hover:file:bg-blue-50
-                                           hover:file:text-blue-700"
-                                        onChange={handleFileChange}
-                                      />
-                                  </div>
-                                  <div class="flex-col basis-1/12 content-end">
-                                      <button class="button" onClick={ () => setShowSidebar(false)}>x</button>
-                                  </div>
-                              </div>
-                              <form class="w-full max-w-lg" onSubmit={handleQuery}>
-                                  <div class="flex items-center border-b border-teal-500 py-2">
-                                      <input
-                                          class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-hidden"
-                                          type="text" placeholder="Enter Query Clause"
-                                          aria-label="where clause for grid" onChange={updateForm}/>
-                                      <button
-                                          class="shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded-sm"
-                                          type="button" onClick={handleQuery}>
-                                          Submit
-                                      </button>
-                                  </div>
-                              </form>
-                              <div>
-                                  <h1>Filters:</h1>
-                                  <div style="font-size: 0.9em" innerHTML={builtQuery()}></div>
-                              </div>
-                          </div>
+                              <div class="flex flex-col w-1/6 h-full"></div>
                           </Show>
                           <Show when={!showSidebar()}>
-                              <button
-                                class="p-2 bg-amber-100 hover:bg-amber-200 rounded-r"
-                                onClick={() => setShowSidebar(true)}
-                              >
-                                  ≡
-                              </button>
+                              <div class="flex flex-col w-1/120 h-full"></div>
                           </Show>
-                          <div class="flex-initial bg-gray-200 basis-full">
+                          <div class="flex flex-col mt-6 flex-1 w-2/3 h-full">
                               <Grid tbl={tbl()} state={stateKey()} widths={widths()} filterStore={filterStore}
-                                    querySelector={querySelector} setQuerySelector={setQuerySelector} onCellUpdate={onCellUpdate}>
+                                    querySelector={querySelector} setQuerySelector={setQuerySelector}
+                                    onCellUpdate={onCellUpdate}>
                               </Grid>
                           </div>
                       </div>
                   </div>
+              </div>
           </div>
       </>
   );
@@ -225,7 +200,8 @@ export default App;
 
 const cleanTableName = (tbl: string) => {
     return tbl.replace(/[^a-zA-Z0-9]/g, "_");
-}
+};
+
 async function update(tbl: string, extension: string, str: string) {
     // Remove Special Characters from Table Name
     const cleanTbl = cleanTableName(tbl);

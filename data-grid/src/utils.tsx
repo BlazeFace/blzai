@@ -10,11 +10,11 @@ export function roughTextWidth(text: string, fontSize: number): number {
 }
 
 export function rowWidths(values: any[], runeSize: number): number[] {
-    const width: number[] = new Array(values.length).fill(0);
+    const widths: number[] = new Array(values.length).fill(0);
     for (let i = 0; i < values.length; i++) {
-        width[i] = roughTextWidth((values[i] ?? "").toString(), runeSize) + 14; //Add 10px for Arrow, 4px for padding
+        widths[i] = Math.max((roughTextWidth((values[i] ?? "").toString(), runeSize) + 14), 80);
     }
-    return width;
+    return widths;
 }
 
 export function calculateTextWidth(text: string, font: string): number {
