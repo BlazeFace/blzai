@@ -77,7 +77,13 @@ const App: Component<AppProps> = (props) => {
     }
 
 
-    const updateForm = (e: any) => { setNotBuiltQuery(e.target.value); };
+    const updateForm = (e: any) => {
+        // Remove where clause from baseQuery, if it exists
+        let baseQuery = e.target.value;
+        const whereClause = baseQuery.split(/WHERE/i);
+        baseQuery = whereClause.length > 1 ? whereClause[1] : baseQuery;
+        setNotBuiltQuery(baseQuery);
+    };
 
     const handleQuery = async () => {
         setQueryForm({query: notBuiltQuery()});
