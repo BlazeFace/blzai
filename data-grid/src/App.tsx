@@ -162,11 +162,11 @@ const App: Component<AppProps> = (props) => {
   return (
       <>
           <div class="container min-w-full min-h-full">
-              <div class="fixed top-0 left-0 right-0 flex flex-row bg-amber-500 z-20">
+              <div class="fixed top-0 left-0 right-0 flex flex-row bg-primary z-20 text-primary-content">
                   <h1>DataGrid</h1>
               </div>
               <div class="flex flex-col w-screen">
-                  <div class="flex flex-row bg-blue-300 h-screen">
+                  <div class="flex flex-row h-screen">
                       <Show when={showSidebar()}>
                           <SidePanel selectedFile={selectedFile} setSelectedFile={setSelectedFile}
                                      handleFileChange={handleFileChange}
@@ -175,20 +175,20 @@ const App: Component<AppProps> = (props) => {
                       </Show>
                       <Show when={!showSidebar()}>
                           <button
-                            class="fixed top-0 left-0 h-full mt-6 w-1/120 bg-amber-100 hover:bg-amber-200 rounded-r"
+                            class="fixed top-0 left-0 h-full mt-7 w-1/120 text-primary-content hover:text-accent hover:bg-base-100 bg-primary rounded-r"
                             onClick={() => setShowSidebar(true)}>
                               =
                           </button>
                       </Show>
                       <div
-                        class={showSidebar() ? "flex flex-auto bg-gray-200 basis-2/3" : "flex flex-auto bg-gray-200 basis-full"}>
+                        class={showSidebar() ? "flex flex-auto basis-2/3" : "flex flex-auto basis-full"}>
                           <Show when={showSidebar()}>
                               <div class="flex flex-col w-1/6 h-full"></div>
                           </Show>
                           <Show when={!showSidebar()}>
                               <div class="flex flex-col w-1/120 h-full"></div>
                           </Show>
-                          <div class="flex flex-col mt-6 flex-1 w-2/3 h-full">
+                          <div class="flex flex-col mt-6 flex-1 w-2/3">
                               <Grid tbl={tbl()} state={stateKey()} widths={widths()} filterStore={filterStore}
                                     querySelector={querySelector} setQuerySelector={setQuerySelector}
                                     onCellUpdate={onCellUpdate}>

@@ -64,7 +64,7 @@ export const HeaderCell: Component<HeaderCellProps> = (props) => {
   return (
     <>
       <div class="flex flex-col">
-        <div class="border-solid border-2 border-red-500 text-center" style={`width: ${props.width}px`}>
+        <div class="bg-base-100 border-1 border-base-300 border-b border-b-secondary text-center" style={`width: ${props.width}px`}>
           <div class="flex flex-row">
             <div class="basis-1/12 p-1 flex justify-start" onClick={() => {
               handleSortSelect(props.col().name);
@@ -72,25 +72,25 @@ export const HeaderCell: Component<HeaderCellProps> = (props) => {
               {props.selectQueryAccessor().ordering.column === props.col().name ? (
                   props.selectQueryAccessor().ordering.dir === 1 ? (
                     <svg height="15px" width="15px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
-                      <path stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      <path class="stroke-primary" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M12 20V4m0 0l6 6m-6-6l-6 6" />
                     </svg>
                   ) : props.selectQueryAccessor().ordering.dir === -1 ? (
                       <svg height="15px" width="15px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none"
-                           stroke="#000000">
+                           class="stroke-primary">
                         <g stroke-linecap="round" stroke-width="2">
                           <path d="M12 4v16" />
                           <path d="M6 14l6 6 6-6" />
                         </g>
                       </svg>) :
                     <svg height="15px" width="15px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
-                      <path stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      <path class="stroke-primary" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M9 17l3 3m0 0l3-3m-3 3V4m3 3l-3-3m0 0L9 7" />
                     </svg>
                 ) :
                 (
                   <svg height="15px" width="15px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
-                    <path stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    <path class="stroke-primary" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                           d="M9 17l3 3m0 0l3-3m-3 3V4m3 3l-3-3m0 0L9 7" />
                   </svg>
                 )}
@@ -104,7 +104,7 @@ export const HeaderCell: Component<HeaderCellProps> = (props) => {
                 columnLocation: props.index
               });
             }}>
-              <svg fill="#000000" height="10px" width="10px" version="1.1" id="Layer_1"
+              <svg class="fill-secondary" height="10px" width="10px" version="1.1" id="Layer_1"
                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                    viewBox="0 0 407.437 407.437">
                 <polygon
@@ -114,7 +114,7 @@ export const HeaderCell: Component<HeaderCellProps> = (props) => {
           </div>
         </div>
         <Show when={props.filterAccessor().clicked && props.filterAccessor().columnLocation === props.index}>
-          <div class="absolute border-solid border-2 border-red-500 bg-amber-50"
+          <div class="absolute border-solid border-2 border-base-300 bg-base-100"
                style={`width: 7%; margin-left:calc(${props.width}px - 7%);`}>
             <GridDropdown options={props.filterStore.store.get(props.col().name)?.values ?? []}
                           onSelect={handleFilterSelect} filterClick={props.filterClick} index={props.index}

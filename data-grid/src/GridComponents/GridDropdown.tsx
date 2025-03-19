@@ -53,7 +53,7 @@ const GridDropdown: Component<GridDropdownProps> = (props) => {
                 <ul class="border mt-2 max-h-40 overflow-y-auto">
                     <For each={filteredOptions()}>
                         {(option) => (
-                            <li class="p-2 cursor-pointer hover:bg-gray-200">
+                            <li class="p-2 cursor-pointer hover:bg-accent">
                                 <label>
                                     <input
                                         type="checkbox"

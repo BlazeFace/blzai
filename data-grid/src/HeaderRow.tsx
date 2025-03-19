@@ -9,7 +9,7 @@ export const HeaderRow: Component<HeaderRowProps> = (props) => {
     const [sort, setSort] = createSignal<FilterClick>({clicked: false, columnLocation: 0});
     return (
         <>
-            <div class="grid grid-flow-col auto-cols-max resize-x bg-amber-500">
+            <div class="grid grid-flow-col auto-cols-max resize-x bg-base-300">
                 <Index each={props.cols()}>{(col, i) =>
                     <HeaderCell col={col} index={i} width={props.columnWidths()[i]} filterClick={setSort} filterAccessor={sort} filterStore={props.filterStore} selectQuerySetter={props.selectQuerySetter} selectQueryAccessor={props.selectQueryAccessor}></HeaderCell>
                 }

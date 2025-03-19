@@ -11,7 +11,7 @@ type RowProps = {
 export const Row: Component<RowProps> = (props) => {
   return (
       <>
-          <div class="grid grid-flow-col auto-cols-max bg-amber-50 ">
+          <div class="grid grid-flow-col auto-cols-max">
             <Index each={props.cells().value}>{(cell, i) =>
                 <Cell
                   cell={cell}

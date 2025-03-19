@@ -8,33 +8,41 @@ export type SidePanelProps = {
 
 export const SidePanel: Component<SidePanelProps> = (props) => {
   return (
-    <div class="fixed top-0 left-0 h-full mt-6 bg-amber-50 w-1/5 p-2 z-10 overflow-y-auto">
+    <div class="fixed top-0 left-0 h-full mt-6 bg-base-100 p w-1/5 p-2 z-10 border-r border-r-secondary overflow-y-auto">
       <div class="flex-row flex">
-        <div class="flex-col basis-11/12">
-          {props.selectedFile() && <p>Selected file: {props.selectedFile().name}</p>}
-          <input
-            type="file"
-            class="text-sm text-stone-500
-                                           file:mr-5 file:py-1 file:px-3 file:border-[1px]
-                                           file:text-xs file:font-medium
-                                           file:bg-stone-50 file:text-stone-700
-                                           hover:file:cursor-pointer hover:file:bg-blue-50
-                                           hover:file:text-blue-700"
-            onChange={props.handleFileChange}
-          />
+        <div class="w-7/8">
         </div>
-        <div class="flex-col basis-1/12 content-end">
-          <button class="button" onClick={() => props.setShowSidebar(false)}>x</button>
+        <button
+          class="p-1  m-1 hover:bg-primary hover:text-primary-content rounded"
+          onClick={() => props.setShowSidebar(false)}
+        >
+          ✕
+        </button>
+      </div>
+      <div>
+        <div class="flex flex-col">
+          <input type="file" class="file-input file-input-primary file-input-sm w-full"
+                 onChange={props.handleFileChange} />
         </div>
       </div>
-      <form class="w-full max-w-lg" onSubmit={(e) => {e.preventDefault(); props.handleQuery();}}>
-        <div class="flex items-center border-b border-teal-500 py-2">
-          <input
-            class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-hidden"
-            type="text" placeholder="Enter Query Clause"
-            aria-label="where clause for grid" onChange={props.updateForm} />
+      <form class="mt-2 w-full" onSubmit={(e) => {
+        e.preventDefault();
+        props.handleQuery();
+      }}>
+          <textarea
+            placeholder="Enter Query Clause"
+            class="textarea textarea-primary w-full resize-y min-h-[100px]"
+            aria-label="where clause for grid"
+            onChange={props.updateForm}
+          />
+        <div class="flex items-end justify-end border-b border-teal-500 py-2">
           <button
-            class="shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded-sm"
+            class="mr-1 shrink-0 bg-primary hover:bg-secondary border-primary hover:border-secondary text-sm border-4 text-white py-1 px-2 rounded-sm"
+            type="button" onClick={props.handleQuery}>
+            Show Query Plan
+          </button>
+          <button
+            class="ml-1 shrink-0 bg-accent hover:bg-teal-700 border-accent hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded-sm"
             type="button" onClick={props.handleQuery}>
             Submit
           </button>

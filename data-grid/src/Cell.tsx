@@ -74,9 +74,9 @@ export const Cell: Component<CellProps> = (props) => {
       <>
           <div
             classList={{
-                "border-solid border-2 text-center": true,
-                "border-blue-600 bg-blue-50": isSelected(),
-                "border-sky-500 bg-amber-50": !isSelected()
+                "border-solid border-1 text-center": true,
+                "border-neutral-content bg-primary text-primary-content": isSelected(),
+                "border-base-300 bg-base-100 text-base-content": !isSelected()
             }}
             style={`width: ${props.width}px`}
             onClick={(e) => handleClick(e)}
