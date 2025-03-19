@@ -34,9 +34,11 @@ const App: Component<AppProps> = (props) => {
     const [queryForm, setQueryForm] = createSignal<QueryForm>({query: ""});
     const [notBuiltQuery, setNotBuiltQuery] = createSignal<string>("");
     const [builtQuery, setBuiltQuery] = createSignal<string>("");
+    const [isLoading, setIsLoading] = createSignal(false);
 
     const handleFileChange = (event: any) => {
         setSelectedFile(event.target.files[0]);
+        setIsLoading(true);
 
         const reader = new FileReader();
         reader.onload = async function(e) {
@@ -49,6 +51,7 @@ const App: Component<AppProps> = (props) => {
             }
             setTable(cleanTableName(file));
             await buildFilters(cleanTableName(file));
+            setIsLoading(false);
         };
         reader.readAsText(event.target.files[0]);
     };
@@ -189,6 +192,16 @@ const App: Component<AppProps> = (props) => {
                               <div class="flex flex-col w-1/120 h-full"></div>
                           </Show>
                           <div class="flex flex-col mt-6 flex-1 w-2/3">
+                              <Show when={isLoading()} fallback={
+                                  <Grid tbl={tbl()} state={stateKey()} widths={widths()} filterStore={filterStore}
+                                        querySelector={querySelector} setQuerySelector={setQuerySelector}
+                                        onCellUpdate={onCellUpdate}>
+                                  </Grid>
+                              }>
+                                  <div class="flex justify-center items-center h-full">
+                                      <span class="loading loading-spinner loading-lg text-primary"></span>
+                                  </div>
+                              </Show>
                               <Grid tbl={tbl()} state={stateKey()} widths={widths()} filterStore={filterStore}
                                     querySelector={querySelector} setQuerySelector={setQuerySelector}
                                     onCellUpdate={onCellUpdate}>
