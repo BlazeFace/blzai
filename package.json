@@ -29,7 +29,7 @@
     "d3": "^7.9.0",
     "daisyui": "5.0.35",
     "eslint": "^9.25.1",
-    "eslint-config-prettier": "^10.1.2",
+    "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-svelte": "^3.5.1",
     "postcss": "^8.5.3",
     "prettier": "^3.5.3",
