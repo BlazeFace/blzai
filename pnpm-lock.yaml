@@ -48,8 +48,8 @@ importers:
         specifier: ^7.9.0
         version: 7.9.0
       daisyui:
-        specifier: 5.0.48
-        version: 5.0.48
+        specifier: 5.0.50
+        version: 5.0.50
       eslint:
         specifier: ^9.32.0
         version: 9.32.0(jiti@2.4.2)
@@ -1057,8 +1057,8 @@ packages:
     resolution: {integrity: sha512-e1U46jVP+w7Iut8Jt8ri1YsPOvFpg46k+K8TpCb0P+zjCkjkPnV7WzfDJzMHy1LnA+wj5pLT1wjO901gLXeEhA==}
     engines: {node: '>=12'}
 
-  daisyui@5.0.48:
-    resolution: {integrity: sha512-t2nvzKENuhbjkKmxhIoDgV/nzAnNLbswK9MBlOMnEO6hxfgNLlt7jVrHYWw6ts492JdQ0Mmf6iX3aO/u+1zXAw==}
+  daisyui@5.0.50:
+    resolution: {integrity: sha512-c1PweK5RI1C76q58FKvbS4jzgyNJSP6CGTQ+KkZYzADdJoERnOxFoeLfDHmQgxLpjEzlYhFMXCeodQNLCC9bow==}
 
   debug@4.4.0:
     resolution: {integrity: sha512-6WTZ/IxCY/T6BALoZHaE4ctp9xm+Z5kY/pzYaCHRFeyVhojxlrm+46y68HA6hr0TcwEssoxNiDEUJQjfPZ/RYA==}
@@ -2865,7 +2865,7 @@ snapshots:
       d3-transition: 3.0.1(d3-selection@3.0.0)
       d3-zoom: 3.0.0
 
-  daisyui@5.0.48: {}
+  daisyui@5.0.50: {}
 
   debug@4.4.0:
     dependencies:
