@@ -33,9 +33,7 @@ jobs:
         with:
           cache: "pnpm"
       - run: pnpm install
-        working-directory: ./data-grid
-      - run: pnpm run build
-        working-directory: ./data-grid
+      - run: pnpm --filter data-grid run build
       - name: Upload to blob storage
         uses: azure/CLI@v2
         with:

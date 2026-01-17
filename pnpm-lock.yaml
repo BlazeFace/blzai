@@ -98,54 +98,51 @@ importers:
 
   data-grid:
     dependencies:
-      '@extism/extism':
-        specifier: 2.0.0-rc11
-        version: 2.0.0-rc11
       '@observablehq/plot':
         specifier: ^0.6.17
         version: 0.6.17
       '@tailwindcss/vite':
-        specifier: ^4.0.14
+        specifier: ^4.1.18
         version: 4.1.18(vite@6.4.1(@types/node@20.19.29)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2))
       d3:
         specifier: ^7.9.0
         version: 7.9.0
       daisyui:
-        specifier: ^5.0.6
+        specifier: ^5.5.14
         version: 5.5.14
       highlight.js:
         specifier: ^11.11.1
         version: 11.11.1
       solid-js:
-        specifier: ^1.9.5
+        specifier: ^1.9.10
         version: 1.9.10
     devDependencies:
       '@duckdb/duckdb-wasm':
-        specifier: ^1.29.0
+        specifier: ^1.32.0
         version: 1.32.0
       '@tailwindcss/postcss':
-        specifier: ^4.0.14
+        specifier: ^4.1.18
         version: 4.1.18
       apache-arrow:
         specifier: ^19.0.1
         version: 19.0.1
       postcss:
-        specifier: ^8.5.3
+        specifier: ^8.5.6
         version: 8.5.6
       solid-devtools:
         specifier: ^0.33.0
         version: 0.33.0(solid-js@1.9.10)(vite@6.4.1(@types/node@20.19.29)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2))
       tailwindcss:
-        specifier: ^4.0.14
+        specifier: ^4.1.18
         version: 4.1.18
       typescript:
-        specifier: ^5.8.2
+        specifier: ^5.9.3
         version: 5.9.3
       vite:
-        specifier: ^6.2.2
+        specifier: ^6.4.1
         version: 6.4.1(@types/node@20.19.29)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2)
       vite-plugin-solid:
-        specifier: ^2.11.6
+        specifier: ^2.11.10
         version: 2.11.10(solid-js@1.9.10)(vite@6.4.1(@types/node@20.19.29)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2))
 
 packages:
@@ -593,9 +590,6 @@ packages:
   '@eslint/plugin-kit@0.4.1':
     resolution: {integrity: sha512-43/qtrDUokr7LJqoF2c3+RInu/t4zfrpYdoSDfYyhg52rwLV6TnOvdG4fXm7IkSB3wErkcmJS9iEhjVtOSEjjA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-
-  '@extism/extism@2.0.0-rc11':
-    resolution: {integrity: sha512-+vjXOjQbCLpIAkMZjqkDIT4WUp2FA0mglj3a4nBpCp/gjDngiFqG6TmXP0esOubktY2EUklFiPCeaDr/sQXzKA==}
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -2858,8 +2852,6 @@ snapshots:
     dependencies:
       '@eslint/core': 0.17.0
       levn: 0.4.1
-
-  '@extism/extism@2.0.0-rc11': {}
 
   '@humanfs/core@0.19.1': {}
 
