@@ -1,0 +1,12 @@
+packages:
+  - .
+  - data-grid
+
+minimumReleaseAge: 4320
+minimumReleaseAgeExclude:
+- svelte
+- devalue
+- "@sveltejs/kit"
+- "@sveltejs/adapter-node"
+onlyBuiltDependencies:
+  - esbuild
